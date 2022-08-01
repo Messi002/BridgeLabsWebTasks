@@ -13,23 +13,32 @@ const Login = () => {
         var {email,password} = e.target;
         setIsShowing(true);
         
-        const res = await fetch(
-            "https://simplor.herokuapp.com/api/user/login",
-            {
-              body: JSON.stringify({
-                email: email.value,
-                password: password.value,
-              }),
-              headers: {
-                Accept: "*/*",
-                "Content-Type": "application/json",
-              },
-              method: "POST",
-            }
-          );
+        // const res = await fetch(
+        //     "https://simplor.herokuapp.com/api/user/login",
+        //     {
+        //       body: JSON.stringify({
+        //         email: email.value,
+        //         password: password.value,
+        //       }),
+        //       headers: {
+        //         Accept: "*/*",
+        //         "Content-Type": "application/json",
+        //       },
+        //       method: "POST",
+        //     }
+        //   );
 
-          console.log(res.status);
 
+    // if (response.status === 200) {
+    //     var result = await response.json();
+    //     console.log(result);
+    //     localStorage.setItem("token", result.access);
+    //     navigate("/crud");
+    //     setLoading(false);
+    //   } else {
+    //     setMessage([{ error: "Invalid Username or Password" }]);
+    //     setLoading(false);
+    //   }
         
     //    let json=JSON.stringify({   email : email.value,password: password.value })
     //     axios.post(`https://simplor.herokuapp.com/api/user/login`,json,{headers:{
@@ -86,7 +95,7 @@ const Login = () => {
                Loading...
               </button>
            ):(
-               <button type="submit" className="text-white bg-primary btn">
+               <button type="submit" className="text-white bg-primary btn" onClick={() => navigate("/register")}>
                LogIn
               </button>
            )}
