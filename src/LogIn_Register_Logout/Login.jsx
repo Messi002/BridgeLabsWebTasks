@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { useNavigate } from "react-router";
 import img from '../Assets/img.PNG'
+import axios from 'axios';
 import {
   Card,
   Col,
@@ -17,7 +18,23 @@ const Login = () => {
  const [showing, setShowing]=useState(false);
  const [msg, setSMsg]=useState([]);
 
-    const handleSubmit= () =>{
+    const handleSubmit= (e) =>{
+        e.preventDefault();
+        var {email,password} = e.target;
+        setShowing(true);
+        axios({
+            url : "https://simplor.herokuapp.com/api/user/login",
+            method: "POST",
+            headers : {
+                Accept: "*/*",
+                "Content-Type":"application/JSON"
+            },
+            data: JSON.stringify({
+                email : email.value,password: password.value
+            })
+        }).then( res => {
+            console.log(res.data);
+        })
 
     }
   return (
@@ -38,7 +55,7 @@ const Login = () => {
                             <Form onSubmit={handleSubmit} method="POST" className="justifiy-content-between">
                                 {
                                     msg.map((item)=>{
-                                     return   <p>
+                                     return   <p className="text-danger">
                                             {item.error && item.error}
                                         </p>
                                     })
