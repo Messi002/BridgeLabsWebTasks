@@ -53,8 +53,8 @@ const Login = () => {
                                     <Form.Control type="password" name="password" maxLength="30" />
                                 </Form.Group>
 
-                                <Button variant="primary"  onClick={()=> navigate('/register') }>
-                                    LogIn
+                                <Button style={{backgroundColor:'grey'}}  onClick={()=> navigate('/register') }>
+                                    Register
                                 </Button>
                                 {
                                     showing? (
