@@ -80,7 +80,9 @@ const Login = () => {
    
            <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
              
-          
+           {/* <button type="btn" className="text-white bg-primary btn" onClick={()=> navigate("/register")}>
+            Login
+           </button> */}
               <Link to="/register"> <button  type="btn" className="text-white bg-primary btn">
                Register
               </button></Link>

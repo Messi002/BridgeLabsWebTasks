@@ -1,7 +1,7 @@
 import { useState } from "react";
 import img from '../Assets/img.PNG';
 import {Spinner} from "react-bootstrap";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
