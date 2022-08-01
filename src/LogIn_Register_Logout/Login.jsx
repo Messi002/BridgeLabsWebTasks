@@ -1,7 +1,6 @@
 import React,{useState} from 'react'
 import { useNavigate } from "react-router";
 import img from '../Assets/img.PNG'
-import axios from 'axios';
 import {  Spinner} from "react-bootstrap";
 
 const Login = () => {
@@ -53,7 +52,11 @@ const Login = () => {
        <h3 className="text-start">LogIn</h3>
     <form class="row">
          
-   
+    {msg.map((item) => (
+                        <li className="text-danger" key={item}>
+                          {item.error && item.error}
+                        </li>
+                      ))}
          
           
            <div className="col-lg-12 col-sm-4 text-start">
@@ -68,12 +71,12 @@ const Login = () => {
    
            <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
              
-           <button type="submit" className="text-white bg-primary btn">
+           <button type="submit" className="text-white bg-primary btn" onClick={() => navigate("/register")}>
                Register
               </button>
                
               {isShowing?(
-               <button type="submit" className="text-white bg-primary btn">
+               <button type="submit" disabled className="text-white bg-primary btn">
                    <Spinner
                                  animation="border"
                                  size="sm"
@@ -84,7 +87,7 @@ const Login = () => {
               </button>
            ):(
                <button type="submit" className="text-white bg-primary btn">
-               Sign UP
+               LogIn
               </button>
            )}
               
