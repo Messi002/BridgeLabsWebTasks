@@ -1,4 +1,3 @@
-import './App.css';
 import Login from './LogIn_Register_Logout/Login';
 
 function App() {
