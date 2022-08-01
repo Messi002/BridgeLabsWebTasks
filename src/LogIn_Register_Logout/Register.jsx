@@ -18,6 +18,15 @@ const Register = () => {
 
     const handleUser = async (e) => {
         const form = e.currentTarget;
+        if(form.checkValidity()=== false){
+            e.preventDefault();
+            e.stopPropagation();
+        }else{
+            e.preventDefault();
+            setIsShowing(true);
+
+
+        }
 
         setValidated(true);
     }
