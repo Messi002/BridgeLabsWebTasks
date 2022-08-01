@@ -11,16 +11,16 @@ const Register = () => {
     <div className=" container mt-3 d-flex justify-content-center align-items-center" >
  <div className="row p-3" style={{border:"0.2px solid grey"}}>
 
- <div className="bg-danger col-sm-12 col-lg-6 d-flex justify-content-center text-center">
+ <div className=" col-sm-12 col-lg-6 d-flex justify-content-center text-center">
 <img src={img} className="img-fluid" alt="Loading..."/>
  </div>
 
- <div className="bg-warning col-sm-12 col-lg-6  justify-content-center text-center pb-2" >
+ <div className="mt-4 col-sm-12 col-lg-6  justify-content-center text-center pb-2" >
     <h3 className="text-start">Registration</h3>
- <form class="row">
+ <form class="row" onSubmit={handleUser} method="POST" validated={validated} noValidate>
         <div className="col-lg-12 col-sm-4 text-start" >
             <label for="inputFName" className="form-label">First Name</label>
-            <input type="text" class="form-control" name="inputFName"/>
+            <input type="text" class="form-control" name="inputFName" required onChanged={(e)=> handleChange(e)}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
@@ -50,7 +50,7 @@ const Register = () => {
            </button>
             
            {isShowing?(
-            <button type="submit" className="text-white bg-primary btn">
+            <button type="submit" className="text-white bg-primary btn" href="/">
                 <Spinner
                               animation="border"
                               size="sm"
