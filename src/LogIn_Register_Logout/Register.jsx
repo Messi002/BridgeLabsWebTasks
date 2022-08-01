@@ -1,41 +1,19 @@
 import { useState } from "react";
 import img from '../Assets/img.PNG';
-
-import {
-  Card,
-  Col,
-  Container,
-  Form,
-  FormControl,
-  FormGroup,
-  FormLabel,
-  Row,
-  Button,
-  Spinner,
-  Image,
-} from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
 const Register = () => {
   return (
-    <div>
-        <Container>
-            <Row className="mt-5 mb-3 justify-content-center">
-                <Col sm={9}>
-                    <Card>
-                        <Card.Body>
-                            <Row>
-                                <Col sm={6}>
-                                    <Image src={img} clasName="w-100 h-100"/>
-                                </Col>
-                            </Row>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
-        </Container>
+    <div className="Contaier d-flex justify-content-center align-items-center" style={{width:"100vw", height:"100vh"}}>
+ <div className="row p-2" style={{border:"0.2px solid grey"}}>
+ <div className="bg-danger col-sm-12 col-lg-6  justify-content-center text-center">
+<img src={img} className="img-fluid w-100 h-100" alt="Image Here"/>
+ </div>
+ <div className="bg-warning col-sm-12 col-lg-6  justify-content-center text-center">2</div>
+ </div>
+      
     </div>
   )
 }
