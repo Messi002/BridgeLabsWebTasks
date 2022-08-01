@@ -41,13 +41,15 @@ const Register = () => {
             <input type="password" class="form-control" name="password"/>
         </div>
 
-        <div className="col-lg-12 col-sm-4">
-            <div>
-
-            </div>
-            <div>
-                
-            </div>
+        <div className="col-lg-12 col-sm-4 d-flex mt-2 justify-content-between">
+          
+        <button type="submit" className="text-white bg-info btn">
+            Login
+           </button>
+            
+           <button type="submit" className="text-white bg-info btn">
+            Sign UP
+           </button>
            
         </div>
 
