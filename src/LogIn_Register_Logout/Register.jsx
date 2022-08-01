@@ -24,7 +24,29 @@ const Register = () => {
         }else{
             e.preventDefault();
             setIsShowing(true);
-
+            fetch("https://simplor.herokuapp.com/api/user/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(user),
+              })
+                .then((response) => {
+                  if (response.status === 200) {
+                    toast.success("Data Added Successfuly", {
+                      position: "bottom-right",
+                    });
+                  } else {
+                    toast.error(response.statusText + "(" + response.status + ")", {
+                      position: "bottom-right",
+                    });
+                  }
+        
+                  setValidated(false);
+                  setIsShowing(false);
+                })
+                .catch((err) => {
+                  console.log(err);
+                  setIsShowing(false);
+                });
 
         }
 
