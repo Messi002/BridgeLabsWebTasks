@@ -31,7 +31,7 @@ const Register = () => {
               })
                 .then((response) => {
                   if (response.status === 200) {
-                    toast.success("Data Added Successfuly", {
+                    toast.success("Successful", {
                       position: "bottom-right",
                     });
                   } else {

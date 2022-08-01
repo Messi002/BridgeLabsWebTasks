@@ -69,7 +69,7 @@ const Login = () => {
            <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
              
            <button type="submit" className="text-white bg-primary btn">
-               Login
+               Register
               </button>
                
               {isShowing?(
