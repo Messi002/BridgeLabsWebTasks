@@ -1,11 +1,13 @@
 import { useState } from "react";
 import img from '../Assets/img.PNG';
 import {Spinner} from "react-bootstrap";
+import { useNavigate,Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
 const Register = () => {
+    let navigate =useNavigate();
     const [isShowing, setIsShowing] = useState(false);
     const [validated, setValidated] = useState(false);
     const [user, setUser] = useState({})
@@ -95,12 +97,12 @@ const Register = () => {
 
         <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
           
-        <button type="submit" className="text-white bg-primary btn">
+        <button  className="text-white bg-primary btn" onClick={()=> navigate("/")}>
             Login
            </button>
             
            {isShowing?(
-            <button type="submit" className="text-white bg-primary btn" href="/">
+            <button type="submit" disabled className="text-white bg-primary btn">
                 <Spinner
                               animation="border"
                               size="sm"

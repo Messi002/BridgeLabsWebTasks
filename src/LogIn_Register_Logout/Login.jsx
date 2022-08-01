@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { useNavigate,Link } from "react-router";
+import { useNavigate,Link } from "react-router-dom";
 import img from '../Assets/img.PNG'
 import {  Spinner} from "react-bootstrap";
 
@@ -80,9 +80,10 @@ const Login = () => {
    
            <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
              
-           <button className="text-white bg-primary btn" onClick={() => navigate("/register")}>
+          
+              <Link to="/register"> <button  type="btn" className="text-white bg-primary btn">
                Register
-              </button>
+              </button></Link>
                
               {isShowing?(
                <button type="submit" disabled className="text-white bg-primary btn">
