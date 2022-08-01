@@ -1,10 +1,12 @@
 import { useState } from "react";
 import img from '../Assets/img.PNG';
+import {Spinner} from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
 const Register = () => {
+    const [isShowing, setIsShowing] = useState(false);
   return (
     <div className=" container mt-3 d-flex justify-content-center align-items-center" >
  <div className="row p-3" style={{border:"0.2px solid grey"}}>
@@ -41,23 +43,36 @@ const Register = () => {
             <input type="password" class="form-control" name="password"/>
         </div>
 
-        <div className="col-lg-12 col-sm-4 d-flex mt-2 justify-content-between">
+        <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
           
-        <button type="submit" className="text-white bg-info btn">
+        <button type="submit" className="text-white bg-primary btn">
             Login
            </button>
             
-           <button type="submit" className="text-white bg-info btn">
+           {isShowing?(
+            <button type="submit" className="text-white bg-primary btn">
+                <Spinner
+                              animation="border"
+                              size="sm"
+                              role="status"
+                              aria-hidden="true"
+                            />
+            Loading...
+           </button>
+        ):(
+            <button type="submit" className="text-white bg-primary btn">
             Sign UP
            </button>
+        )}
            
         </div>
-
+     
 
       </form>
  </div>
  </div>
-     
+ <ToastContainer autoClose={2000} />
+
     </div>
   )
 }
