@@ -34,7 +34,12 @@ const Login = () => {
                         <Row>
                             <Form onSubmit={handleSubmit} method="POST">
                                 <Form.Group>
-                                    <Form.Label>Email</Form.Label>
+                                    <Form.Label>Email</Form.Label> <br />
+                                    <Form.Control type="email" name="email" maxLength="30" />
+                                </Form.Group>
+
+                                <Form.Group>
+                                    <Form.Label>Email</Form.Label> <br />
                                     <Form.Control type="email" name="email" maxLength="30" />
                                 </Form.Group>
                             </Form>
