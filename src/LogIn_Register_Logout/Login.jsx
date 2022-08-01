@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { useNavigate } from "react-router";
+import { useNavigate,Link } from "react-router";
 import img from '../Assets/img.PNG'
 import {  Spinner} from "react-bootstrap";
 
@@ -13,32 +13,32 @@ const Login = () => {
         var {email,password} = e.target;
         setIsShowing(true);
         
-        // const res = await fetch(
-        //     "https://simplor.herokuapp.com/api/user/login",
-        //     {
-        //       body: JSON.stringify({
-        //         email: email.value,
-        //         password: password.value,
-        //       }),
-        //       headers: {
-        //         Accept: "*/*",
-        //         "Content-Type": "application/json",
-        //       },
-        //       method: "POST",
-        //     }
-        //   );
+        const res = await fetch(
+            "https://simplor.herokuapp.com/api/user/login",
+            {
+              body: JSON.stringify({
+                email: email.value,
+                password: password.value,
+              }),
+              headers: {
+                Accept: "*/*",
+                "Content-Type": "application/json",
+              },
+              method: "POST",
+            }
+          );
 
+    if (res.status === 200) {
+        var result = await res.json();
+        console.log(result);
+        localStorage.setItem("token", result.access);
+        navigate("/crud");
+        setIsShowing(false);
+      } else {
+        setSMsg([{ error: "Invalid Username or Password" }]);
+        setIsShowing(false);
+      }
 
-    // if (response.status === 200) {
-    //     var result = await response.json();
-    //     console.log(result);
-    //     localStorage.setItem("token", result.access);
-    //     navigate("/crud");
-    //     setLoading(false);
-    //   } else {
-    //     setMessage([{ error: "Invalid Username or Password" }]);
-    //     setLoading(false);
-    //   }
         
     //    let json=JSON.stringify({   email : email.value,password: password.value })
     //     axios.post(`https://simplor.herokuapp.com/api/user/login`,json,{headers:{
@@ -59,7 +59,7 @@ const Login = () => {
    
     <div className="mt-4 col-sm-12 col-lg-6  justify-content-center text-center pb-2" >
        <h3 className="text-start">LogIn</h3>
-    <form class="row">
+    <form class="row" noValidate onSubmit={handleSubmit} method="POST">
          
     {msg.map((item) => (
                         <li className="text-danger" key={item}>
@@ -80,7 +80,7 @@ const Login = () => {
    
            <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
              
-           <button type="submit" className="text-white bg-primary btn" onClick={() => navigate("/register")}>
+           <button className="text-white bg-primary btn" onClick={() => navigate("/register")}>
                Register
               </button>
                
@@ -95,7 +95,7 @@ const Login = () => {
                Loading...
               </button>
            ):(
-               <button type="submit" className="text-white bg-primary btn" onClick={() => navigate("/register")}>
+               <button type="submit" className="text-white bg-primary btn">
                LogIn
               </button>
            )}
