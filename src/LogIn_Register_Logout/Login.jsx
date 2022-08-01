@@ -18,23 +18,36 @@ const Login = () => {
  const [showing, setShowing]=useState(false);
  const [msg, setSMsg]=useState([]);
 
-    const handleSubmit= (e) =>{
+    const handleSubmit= async (e) =>{
         e.preventDefault();
         var {email,password} = e.target;
         setShowing(true);
-        axios({
-            url : "https://simplor.herokuapp.com/api/user/login",
-            method: "POST",
-            headers : {
+        
+        const res = await fetch(
+            "https://simplor.herokuapp.com/api/user/login",
+            {
+              body: JSON.stringify({
+                email: email.value,
+                password: password.value,
+              }),
+              headers: {
                 Accept: "*/*",
-                "Content-Type":"application/JSON"
-            },
-            data: JSON.stringify({
-                email : email.value,password: password.value
-            })
-        }).then( res => {
-            console.log(res.data);
-        })
+                "Content-Type": "application/json",
+              },
+              method: "POST",
+            }
+          );
+
+          console.log(res.status);
+
+        
+    //    let json=JSON.stringify({   email : email.value,password: password.value })
+    //     axios.post(`https://simplor.herokuapp.com/api/user/login`,json,{headers:{
+    //         'Content-Type':'application/json',
+    //         Accept: "*/*"
+    //     }}).then(res => {
+    //         console.log(res.status);
+    //     })
 
     }
   return (
