@@ -13,12 +13,14 @@ const Register = () => {
     const handleChange = (e) => {
         const {name, value} = e.target;
         setUser({...user,[name]:value});
-        console.log(user);
-        console.log(setUser);
-
+    
     }
 
-    const 
+    const handleUser = async (e) => {
+        const form = e.currentTarget;
+
+        setValidated(true);
+    }
 
 
 
@@ -34,7 +36,7 @@ const Register = () => {
     <h3 className="text-start">Registration</h3>
 
     {/* form begins here */}
- <form class="row"  method="POST" validated={validated} noValidate>
+ <form class="row" onSubmit={handleUser}  method="POST" validated={validated} noValidate>
         <div className="col-lg-12 col-sm-4 text-start" >
             <label for="inputFName" className="form-label">First Name</label>
             <input type="text" class="form-control" name="inputFName" required onChanged={(e)=> handleChange(e)}/>
