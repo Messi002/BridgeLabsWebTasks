@@ -38,90 +38,103 @@ const Register = () => {
 
     };
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      if (
-        email === '' ||
-        password === '' ||
-        firstName === '' ||
-        lastName === '' ) {
-          toast.error("Please fill out all fiedls!", {
-            position: "bottom-right",
-          });
-                  return;
-      }  
-
-      if (firstName.length < 2 || lastName.length < 2) {
-        toast.error("Name length too short!", {
-          position: "bottom-right",
-        });
-        return;
-      }
-      if (password.length < 6) {
-        toast.error("Password: enter atleast 6 characters.", {
-          position: "bottom-right",
-        });
-        return;
-      }
-      setIsShowing(true);
-      await fetch("https://simplor.herokuapp.com/api/user/register",{
-      method:"POST",
-      headers:{
-        Accept: "application/json",
-        "Content-Type":"application/json"
-      },
-      body: JSON.stringify({ email,
-        firstName,
-         lastName,
-        contact,
-        password,
-        avatar,})
-    }).then((res)=>{
-      res.json().then((data)=>{
-        if(data.detail){
-          toast.error(data.detail,{
-            position: "bottom-right",
-
-          })
-        }
-        console.log(data);
-        toast.success("Registration successful",{
-          position: "bottom-right",
-
-        })
-
-      }).catch((err)=>{
-        console.log('res.json error',err);
-        setIsShowing(false);
-      });
-      setIsShowing(false);
-
-    }).catch((error)=>{
-      console.log(error);
-      setIsShowing(false);
-    })
-
-    // if(response.status === 200){
-    //   let result = await response.json();
+    // const handleSubmit = async (e) => {
+    //   e.preventDefault();
+    
     //   setIsShowing(true);
+    //   await fetch("https://simplor.herokuapp.com/api/user/register",{
+    //   method:"POST",
+    //   headers:{
+    //     Accept: "application/json",
+    //     "Content-Type":"application/json"
+    //   },
+    //   body: JSON.stringify({ email,
+    //     firstName,
+    //      lastName,
+    //     contact,
+    //     password,
+    //     avatar,})
+    // }).then((res)=>{
+    //   if(res.status ===200){
+    //     toast.success("Registration successful",{
+    //       position: "bottom-right",
 
-    //   console.log(result);
-    //   localStorage.setItem("token",result.access)
-    //   navigate("/operations")
-    // }else{
+    //     })
+    //     return;
+    //   }
+    //   res.json().then((data)=>{
+       
+    //     if(data.detail){
+    //       toast.error(data.detail,{
+    //         position: "bottom-right",
+
+    //       })
+    //     }
+    //     console.log(data);
+        
+    //     toast.success("Registration successful",{
+    //       position: "bottom-right",
+
+    //     })
+
+    //   }).catch((err)=>{
+    //     console.log('res.json error',err);
+    //     setIsShowing(false);
+    //   });
     //   setIsShowing(false);
+
+    // }).catch((error)=>{
+    //   console.log(error);
+    //   setIsShowing(false);
+    // })
+
+
+
     // }
 
-      
 
 
-
-
-
-    }
-
-
-
+    const handleSubmit = async (e) => {
+      const form = e.currentTarget;
+      if (form.checkValidity() === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      } else {
+        e.preventDefault();
+  
+        setIsShowing(true);
+        fetch("https://simplor.herokuapp.com/api/user/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email,
+                firstName,
+                 lastName,
+                contact,
+                password,
+                avatar,}),
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              toast.success("Data Added Successfuly", {
+                position: "bottom-right",
+              });
+            } else {
+              toast.error(response.statusText + "(" + response.status + ")", {
+                position: "bottom-right",
+              });
+            }
+  
+            // setValidated(false);
+            setIsShowing(false);
+          })
+          .catch((err) => {
+            console.log(err);
+            setIsShowing(false);
+          });
+      }
+      // setValidated(true);
+    };
+  
   return (
     <div className=" container mt-3 d-flex justify-content-center align-items-center" >
  <div className="row p-3" style={{border:"0.2px solid grey"}}>
@@ -141,23 +154,23 @@ const Register = () => {
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
-            <label for="lastName" className="form-label">Last Name</label>
+            <label htmlFor="lastName" className="form-label">Last Name</label>
             <input type="text" className="form-control" name="lastName" required onChange={handleChange} value={lastName}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
-            <label for="contact" className="form-label">Phone</label>
-            <input type="text" class="form-control" name="contact" required onChange={handleChange} value={contact}/>
+            <label htmlFor="contact" className="form-label">Phone</label>
+            <input type="text" className="form-control" name="contact" required onChange={handleChange} value={contact}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
-            <label for="email" className="form-label">Email</label>
-            <input type="email" class="form-control" name="email" required onChange={handleChange} value={email}/>
+            <label htmlFor="email" className="form-label">Email</label>
+            <input type="email" className="form-control" name="email" required onChange={handleChange} value={email}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
-            <label for="password" className="form-label">Password</label>
-            <input type="password" class="form-control" name="password" required onChange={handleChange} value={password}/>
+            <label htmlFor="password" className="form-label">Password</label>
+            <input type="password" className="form-control" name="password" required onChange={handleChange} value={password}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">

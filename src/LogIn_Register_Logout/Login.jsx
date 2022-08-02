@@ -44,7 +44,14 @@ const Login = ({token}) => {
       localStorage.setItem("token",result.access)
       navigate("/operations")
     }else{
-      setMsg("Please fill out all fields");
+      if (
+        email === '' ||
+        password === '' ) {
+          setMsg("Please fill out all fiedls!");
+
+                  return;
+      }  
+      setMsg("Error");
 
       setIsShowing(false);
     }
@@ -110,20 +117,20 @@ const Login = ({token}) => {
           </div>
 
           <form class="row" noValidate onSubmit={handleSubmit} method="POST">
-          {msg && <h4 className="error">{msg}</h4>}
+          {msg && <h4 className="text-danger">{msg}</h4>}
 
             <div className="col-lg-12 col-sm-4 text-start">
-              <label for="email" className="form-label">
+              <label htmlFor="email" className="form-label">
                 Email
               </label>
-              <input type="email" class="form-control" name="email" onChange={onChange} value={email}/>
+              <input type="email" className="form-control" name="email" onChange={onChange} value={email}/>
             </div>
 
             <div className="col-lg-12 col-sm-4 text-start">
-              <label for="password" className="form-label">
+              <label htmlFor="password" className="form-label">
                 Password
               </label>
-              <input type="password" class="form-control" name="password" onChange={onChange} value={password}/>
+              <input type="password" className="form-control" name="password" onChange={onChange} value={password}/>
             </div>
 
             <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
