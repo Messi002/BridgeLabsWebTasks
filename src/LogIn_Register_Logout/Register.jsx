@@ -6,16 +6,16 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
-const Register = ({token}) => {
+const Register = () => {
     let navigate =useNavigate();
-    useEffect(() => {
-      if (token && token !== '') {
-        window.location.pathname = '/';
-      }
-    }, [token]);
+    // useEffect(() => {
+    //   if (token && token !== '') {
+    //     window.location.pathname = '/';
+    //   }
+    // }, [token]);
     const [isShowing, setIsShowing] = useState(false);
     const [formData, setFormData] = useState({
-      first_name: '',
+      firstName: '',
       last_name: '',
       email: '',
       contact: '',
@@ -24,7 +24,7 @@ const Register = ({token}) => {
     });
 
     const {
-      first_name,
+      firstName,
       last_name,
       email,
       contact,
@@ -32,53 +32,60 @@ const Register = ({token}) => {
       avatar,
     } = formData;
 
-    const onChange = (e) => {
+    const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
+      console.log(e.target.value);
+
     };
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      if (
-        email === '' ||
-        password === '' ||
-        first_name === '' ||
-        last_name === '' ) {
-          toast.error("Please fill out all fiedls!", {
-            position: "bottom-right",
-          });
-                  return;
-      }  
+      // if (
+      //   email === '' ||
+      //   password === '' ||
+      //   first_name === '' ||
+      //   last_name === '' ) {
+      //     toast.error("Please fill out all fiedls!", {
+      //       position: "bottom-right",
+      //     });
+      //             return;
+      // }  
 
-      if (first_name.length < 2 || last_name.length < 2) {
-        toast.error("Name length too short!", {
-          position: "bottom-right",
-        });
-        return;
-      }
-      if (password.length < 6) {
-        toast.error("Password: enter atleast 6 characters.", {
-          position: "bottom-right",
-        });
-        return;
-      }
+      // if (first_name.length < 2 || last_name.length < 2) {
+      //   toast.error("Name length too short!", {
+      //     position: "bottom-right",
+      //   });
+      //   return;
+      // }
+      // if (password.length < 6) {
+      //   toast.error("Password: enter atleast 6 characters.", {
+      //     position: "bottom-right",
+      //   });
+      //   return;
+      // }
       setIsShowing(true);
-      const response = await fetch("https://simplor.herokuapp.com/api/user/register",{
+      await fetch("https://simplor.herokuapp.com/api/user/register",{
       method:"POST",
       headers:{
         Accept: "application/json",
         "Content-Type":"application/json"
       },
       body: JSON.stringify({ email,
-        first_name,
+        firstName,
         last_name,
         contact,
         password,
         avatar,})
     }).then((res)=>{
       res.json().then((data)=>{
+        if(data.detail){
+          toast.error(data.detail,{
+            position: "bottom-right",
 
+          })
+        }
         console.log(data);
-        toast.success("",{
+        toast.success("Registration successful",{
           position: "bottom-right",
 
         })
@@ -127,30 +134,31 @@ const Register = ({token}) => {
     <h3 className="text-start">Registration</h3>
 
     {/* form begins here */}
- <form class="row" onSubmit={handleSubmit}  method="POST">
+ <form class="row" onSubmit={handleSubmit} >
         <div className="col-lg-12 col-sm-4 text-start" >
-            <label for="inputFName" className="form-label">First Name</label>
-            <input type="text" class="form-control" name="inputFName" required onChanged={onChange} value={first_name}/>
+            <label for="firstName" className="form-label">First Name</label>
+            <input type="text" className="form-control" name="firstName" onChange={handleChange} value={firstName}/>
+            {/* <input type="text" class="form-control" name="inputFName" onChanged={handleChange} value={first_name} /> */}
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label for="inputLName" className="form-label">Last Name</label>
-            <input type="text" class="form-control" name="inputLName" required onChanged={onChange} value={last_name}/>
+            <input type="text" class="form-control" name="inputLName" required onChanged={handleChange} value={last_name}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label for="phoneNum" className="form-label">Phone</label>
-            <input type="text" class="form-control" name="phoneNum" required onChanged={onChange} value={contact}/>
+            <input type="text" class="form-control" name="phoneNum" required onChanged={handleChange} value={contact}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label for="email" className="form-label">Email</label>
-            <input type="email" class="form-control" name="email" required onChanged={onChange} value={email}/>
+            <input type="email" class="form-control" name="email" required onChanged={handleChange} value={email}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label for="password" className="form-label">Password</label>
-            <input type="password" class="form-control" name="password" required onChanged={onChange} value={password}/>
+            <input type="password" class="form-control" name="password" required onChanged={handleChange} value={password}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
