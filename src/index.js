@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Login from './LogIn_Register_Logout/Login';
 import Register from './LogIn_Register_Logout/Register';
+import Error from './LogIn_Register_Logout/Error';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -16,6 +17,8 @@ root.render(
         <Route path="/" exact element={<Login />} />
         <Route path="/register" exact element={<Register/>} />
         <Route path="/operations" exact element={<App />} />
+        <Route path="*" element={<Error />} />
+
       </Routes>
     </Router>  </React.StrictMode>
 );
