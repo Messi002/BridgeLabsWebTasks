@@ -7,6 +7,7 @@ import Register from './LogIn_Register_Logout/Register';
 import Error from './LogIn_Register_Logout/Error';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MainPage from './LogIn_Register_Logout/MainPage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,7 +15,8 @@ root.render(
   <React.StrictMode>
   <Router>
       <Routes>
-        <Route path="/" exact element={<Login />} />
+        <Route path="/" exact element={<MainPage/>} />
+        <Route path="/login" exact element={<Login />} />
         <Route path="/register" exact element={<Register/>} />
         <Route path="/operations" exact element={<App />} />
         <Route path="*" element={<Error />} />

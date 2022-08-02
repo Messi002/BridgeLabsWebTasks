@@ -175,7 +175,7 @@ const Register = () => {
 
         <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
           
-        <button  className="text-white bg-primary btn" onClick={()=> navigate("/")}>
+        <button  className="text-white bg-primary btn" onClick={()=> navigate("/login")}>
             Login
            </button>
             
