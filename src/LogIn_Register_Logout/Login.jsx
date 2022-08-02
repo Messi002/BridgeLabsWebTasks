@@ -1,52 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import img from "../Assets/img.PNG";
 import { Spinner } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
 const client_id = process.env.REACT_APP_CLIENT_ID;
 
-const Login = () => {
+const Login = ({token}) => {
   let navigate = useNavigate;
   const [isShowing, setIsShowing] = useState(false);
-  const [msg, setSMsg] = useState([]);
+  const [msg, setMsg] = useState("");
+  useEffect(() => {
+    if (token && token !== "") {
+      window.location.pathname = "/";
+    }
+  }, [token]);
+
+  const [loginData, SetLoginData]=useState({
+    email:"",
+    password:"",
+  });
+  const {email,password}=loginData;
+  const onChange =(e) =>{
+    SetLoginData({...loginData,[e.target.name]:e.target.value });
+    console.log(e.target.value);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    var { email, password } = e.target;
+    setMsg("");
+    if(email==="" || password==="" ){
+        setMsg("Please fill out all fields");
+        return ;
+    }
     setIsShowing(true);
 
-    const res = await fetch("https://simplor.herokuapp.com/api/user/login", {
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value,
-      }),
-      headers: {
-        Accept: "*/*",
-        "Content-Type": "application/json",
+    const response = await fetch("https://simplor.herokuapp.com/api/user/login",{
+      method:"POST",
+      headers:{
+        Accept: "application/json",
+        "Content-Type":"application/json"
       },
-      method: "POST",
-    });
+      body: JSON.stringify({email,password})
+    })
 
-    if (res.status === 200) {
-      var result = await res.json();
+    if(response.status === 200){
+      let result = await response.json();
       console.log(result);
-      localStorage.setItem("token", result.access);
-      navigate("/crud");
-      setIsShowing(false);
-    } else {
-      setSMsg([{ error: "Invalid Username or Password" }]);
+      localStorage.setItem("token",result.access)
+      navigate("/operations")
+    }else{
       setIsShowing(false);
     }
 
-    //    let json=JSON.stringify({   email : email.value,password: password.value })
-    //     axios.post(`https://simplor.herokuapp.com/api/user/login`,json,{headers:{
-    //         'Content-Type':'application/json',
-    //         Accept: "*/*"
-    //     }}).then(res => {
-    //         console.log(res.status);
-    //     })
   };
 
+
+  //google auth
   const onSuccess = (res) => {
     console.log(`[LOGIN SUCCESSFUL], current User: ${res}`);
     fetch("https://www.googleapis.com/auth/userinfo.profile", {
@@ -73,9 +82,7 @@ const Login = () => {
     console.log(`[Failed to login], ${res}`);
   };
 
-  const [loginData, SetLoginData]=useState({
 
-  });
   return (
     <div className=" container mt-3 d-flex justify-content-center align-items-center">
       <div className="row p-3" style={{ border: "0.2px solid grey" }}>
@@ -106,11 +113,7 @@ const Login = () => {
           </div>
 
           <form class="row" noValidate onSubmit={handleSubmit} method="POST">
-            {msg.map((item) => (
-              <li className="text-danger" key={item}>
-                {item.error && item.error}
-              </li>
-            ))}
+          {msg && <h4 className="error">{msg}</h4>}
 
             <div className="col-lg-12 col-sm-4 text-start">
               <label for="email" className="form-label">
