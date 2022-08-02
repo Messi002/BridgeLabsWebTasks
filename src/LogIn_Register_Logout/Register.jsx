@@ -14,8 +14,6 @@ const Register = ({token}) => {
       }
     }, [token]);
     const [isShowing, setIsShowing] = useState(false);
-    const [validated, setValidated] = useState(false);
-    const [msg, setMsg] = useState('');
     const [formData, setFormData] = useState({
       first_name: '',
       last_name: '',
@@ -36,22 +34,83 @@ const Register = ({token}) => {
 
     const onChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
-      setMsg('');
     };
 
     const handleSubmit = async (e) => {
-      setMsg('');
       e.preventDefault();
       if (
         email === '' ||
         password === '' ||
         first_name === '' ||
         last_name === '' ) {
-          toast.error("Please", {
+          toast.error("Please fill out all fiedls!", {
             position: "bottom-right",
           });
                   return;
-      }       
+      }  
+
+      if (first_name.length < 2 || last_name.length < 2) {
+        toast.error("Name length too short!", {
+          position: "bottom-right",
+        });
+        return;
+      }
+      if (password.length < 6) {
+        toast.error("Password: enter atleast 6 characters.", {
+          position: "bottom-right",
+        });
+        return;
+      }
+      setIsShowing(true);
+      const response = await fetch("https://simplor.herokuapp.com/api/user/register",{
+      method:"POST",
+      headers:{
+        Accept: "application/json",
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({ email,
+        first_name,
+        last_name,
+        contact,
+        password,
+        avatar,})
+    }).then((res)=>{
+      res.json().then((data)=>{
+
+        console.log(data);
+        toast.success("",{
+          position: "bottom-right",
+
+        })
+
+      }).catch((err)=>{
+        console.log('res.json error',err);
+        setIsShowing(false);
+      });
+      setIsShowing(false);
+
+    }).catch((error)=>{
+      console.log(error);
+      setIsShowing(false);
+    })
+
+    // if(response.status === 200){
+    //   let result = await response.json();
+    //   setIsShowing(true);
+
+    //   console.log(result);
+    //   localStorage.setItem("token",result.access)
+    //   navigate("/operations")
+    // }else{
+    //   setIsShowing(false);
+    // }
+
+      
+
+
+
+
+
     }
 
 
@@ -68,7 +127,7 @@ const Register = ({token}) => {
     <h3 className="text-start">Registration</h3>
 
     {/* form begins here */}
- <form class="row" onSubmit={handleSubmit}  method="POST" validated={validated} noValidate>
+ <form class="row" onSubmit={handleSubmit}  method="POST">
         <div className="col-lg-12 col-sm-4 text-start" >
             <label for="inputFName" className="form-label">First Name</label>
             <input type="text" class="form-control" name="inputFName" required onChanged={onChange} value={first_name}/>
