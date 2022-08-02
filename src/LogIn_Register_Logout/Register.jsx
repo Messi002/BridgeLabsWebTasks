@@ -16,7 +16,7 @@ const Register = () => {
     const [isShowing, setIsShowing] = useState(false);
     const [formData, setFormData] = useState({
       firstName: '',
-      last_name: '',
+      lastName: '',
       email: '',
       contact: '',
       password: '',
@@ -25,7 +25,7 @@ const Register = () => {
 
     const {
       firstName,
-      last_name,
+      lastName,
       email,
       contact,
       password,
@@ -40,29 +40,29 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      // if (
-      //   email === '' ||
-      //   password === '' ||
-      //   first_name === '' ||
-      //   last_name === '' ) {
-      //     toast.error("Please fill out all fiedls!", {
-      //       position: "bottom-right",
-      //     });
-      //             return;
-      // }  
+      if (
+        email === '' ||
+        password === '' ||
+        firstName === '' ||
+        lastName === '' ) {
+          toast.error("Please fill out all fiedls!", {
+            position: "bottom-right",
+          });
+                  return;
+      }  
 
-      // if (first_name.length < 2 || last_name.length < 2) {
-      //   toast.error("Name length too short!", {
-      //     position: "bottom-right",
-      //   });
-      //   return;
-      // }
-      // if (password.length < 6) {
-      //   toast.error("Password: enter atleast 6 characters.", {
-      //     position: "bottom-right",
-      //   });
-      //   return;
-      // }
+      if (firstName.length < 2 || lastName.length < 2) {
+        toast.error("Name length too short!", {
+          position: "bottom-right",
+        });
+        return;
+      }
+      if (password.length < 6) {
+        toast.error("Password: enter atleast 6 characters.", {
+          position: "bottom-right",
+        });
+        return;
+      }
       setIsShowing(true);
       await fetch("https://simplor.herokuapp.com/api/user/register",{
       method:"POST",
@@ -72,7 +72,7 @@ const Register = () => {
       },
       body: JSON.stringify({ email,
         firstName,
-        last_name,
+         lastName,
         contact,
         password,
         avatar,})
@@ -137,28 +137,27 @@ const Register = () => {
  <form class="row" onSubmit={handleSubmit} >
         <div className="col-lg-12 col-sm-4 text-start" >
             <label for="firstName" className="form-label">First Name</label>
-            <input type="text" className="form-control" name="firstName" onChange={handleChange} value={firstName}/>
-            {/* <input type="text" class="form-control" name="inputFName" onChanged={handleChange} value={first_name} /> */}
+            <input type="text" className="form-control" name="firstName" required onChange={handleChange} value={firstName}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
-            <label for="inputLName" className="form-label">Last Name</label>
-            <input type="text" class="form-control" name="inputLName" required onChanged={handleChange} value={last_name}/>
+            <label for="lastName" className="form-label">Last Name</label>
+            <input type="text" className="form-control" name="lastName" required onChange={handleChange} value={lastName}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
-            <label for="phoneNum" className="form-label">Phone</label>
-            <input type="text" class="form-control" name="phoneNum" required onChanged={handleChange} value={contact}/>
+            <label for="contact" className="form-label">Phone</label>
+            <input type="text" class="form-control" name="contact" required onChange={handleChange} value={contact}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label for="email" className="form-label">Email</label>
-            <input type="email" class="form-control" name="email" required onChanged={handleChange} value={email}/>
+            <input type="email" class="form-control" name="email" required onChange={handleChange} value={email}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label for="password" className="form-label">Password</label>
-            <input type="password" class="form-control" name="password" required onChanged={handleChange} value={password}/>
+            <input type="password" class="form-control" name="password" required onChange={handleChange} value={password}/>
         </div>
 
         <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
