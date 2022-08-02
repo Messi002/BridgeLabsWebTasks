@@ -7,12 +7,14 @@ import './main.css'
 const MainPage = () => {
   return (
     <div className=" container mt-3 d-flex justify-content-center align-item-center">
-      <div className="row align" >
+      <div className="row" >
         {/* Navigation bar here */}
 
 
+
+
         {/* section                   1 */}
-        <div className=" col-lg-6 col-sm-12 ">
+        <div className=" col-lg-6 col-sm-12 mt-3 justify-content-center align-content-center">
 
       
           <h2>
@@ -22,12 +24,12 @@ const MainPage = () => {
              <div className="search">
                <input type="search" placeholder="Search Services..." />
              </div>
-             <div className="btn-group">
-               <Link to="/about-us">
-                 <button >About Us</button>
+             <div className="d-flex justify-content-evenly">
+               <Link to="/about-us" >
+                 <button className="text-white btn" style={{backgroundColor:" rgb(53, 53, 169)"}}>About Us</button>
                </Link>
                <Link to="/login">
-                 <button >Login</button>
+                 <button className='bg-light btn border border-dark'>Login</button>
 
                </Link>
              </div>
@@ -35,8 +37,8 @@ const MainPage = () => {
         </div>
 
 {/* Image section */}
-        <div className="mt-4 col-lg-6 col-sm-12 pb-2 illustratn" style={{backgroundImage:`url(${img})`}}>
-        {/* <img src={img} className="img-fluid" alt="Loading..." /> */}
+        <div className="mt-4 col-lg-6 col-sm-12 pb-2 illustratn" >
+        <img src={img} className="img-fluid" alt="Loading..." />
 
       </div>
       </div>

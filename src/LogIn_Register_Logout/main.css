@@ -2,16 +2,21 @@ h2{
     font-size: 40px;
     font-weight: 800;
     margin-bottom: 1rem;
+    color: rgb(53, 53, 169);
+}
+h3{
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 18px;
 }
 
-.input{
-    padding: 1rem;
+input{
+    padding: 0.5rem;
     color: rgba(0, 0, 0, 0.6);
-    width: 100%;
+    width: 80%;
     font-size: 18px;
     margin-top: 2rem;
     margin-bottom: 1rem;
-    border: 2px solid transparent;
+    border: 2px solid rgb(255, 255, 255);
     outline: none;
     font-weight: 700;
     border-radius: 35px;
@@ -20,7 +25,7 @@ h2{
     -webkit-transition: 0.2s ease-in-out;
 }
  input:focus, input:focus-within {
-    border: 2px solid lightgrey;
+    border: 2px solid rgb(173, 165, 165);
 }
 .illustratn{
     background-position: center;
