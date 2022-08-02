@@ -40,40 +40,18 @@ const Register = ({token}) => {
     };
 
     const handleSubmit = async (e) => {
-        const form = e.currentTarget;
-        if(form.checkValidity()=== false){
-            e.preventDefault();
-            e.stopPropagation();
-        }else{
-            e.preventDefault();
-            setIsShowing(true);
-            fetch("https://simplor.herokuapp.com/api/user/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(user),
-              })
-                .then((response) => {
-                  if (response.status === 200) {
-                    toast.success("Successfully registered. Please login.", {
-                      position: "bottom-right",
-                    });
-                  } else {
-                    toast.error(response.statusText + "(" + response.status + ")", {
-                      position: "bottom-right",
-                    });
-                  }
-        
-                  setValidated(false);
-                  setIsShowing(false);
-                })
-                .catch((err) => {
-                  console.log(err);
-                  setIsShowing(false);
-                });
-
-        }
-
-        setValidated(true);
+      setMsg('');
+      e.preventDefault();
+      if (
+        email === '' ||
+        password === '' ||
+        first_name === '' ||
+        last_name === '' ) {
+          toast.error("Please", {
+            position: "bottom-right",
+          });
+                  return;
+      }       
     }
 
 
