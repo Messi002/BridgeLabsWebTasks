@@ -27,11 +27,6 @@ const Login = ({token}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMsg("");
-    if(email==="" || password==="" ){
-        setMsg("Please fill out all fields");
-        return ;
-    }
     setIsShowing(true);
 
     const response = await fetch("https://simplor.herokuapp.com/api/user/login",{
@@ -49,6 +44,8 @@ const Login = ({token}) => {
       localStorage.setItem("token",result.access)
       navigate("/operations")
     }else{
+      setMsg("Please fill out all fields");
+
       setIsShowing(false);
     }
 
