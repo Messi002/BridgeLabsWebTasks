@@ -56,13 +56,15 @@ const Register = () => {
         formData.append("email", Data.email);
         formData.append("password", Data.password);
         formData.append("avatar", Data.avatar);
-        const res = await axios.post("https://simplor.herokuapp.com/api/user/register",formData,config);
-        console.log(res);
-        if(res.status ===200){
-          toast.success("registration successful",{position:"bottom-right"})
-          return;
-        }
+         await axios.post("https://simplor.herokuapp.com/api/user/register",formData,config).then((res)=>{
+        console.log(res.data);
+        alert("good");
         navigate(()=> ("/login"));
+      }).catch((err)=>{
+        console.log(err);
+          console.log(err.response);
+          alert(err.response.data.error.message);
+      })    
       } catch (err) {
         toast.error(err,{osition:"bottom-right" });
         console.log(err);
