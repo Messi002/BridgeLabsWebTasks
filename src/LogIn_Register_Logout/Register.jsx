@@ -58,13 +58,17 @@ const Register = () => {
         formData.append("avatar", Data.avatar);
         const res = await axios.post("https://simplor.herokuapp.com/api/user/register",formData,config);
         console.log(res);
-
+        if(res.status ===200){
+          toast.success("registration successful",{position:"bottom-right"})
+          return;
+        }
+        navigate(()=> ("/login"));
       } catch (err) {
-        toast.error(err,{
-          position:"bottom-right",
-        })
-      }
+        toast.error(err,{osition:"bottom-right" });
+        console.log(err);
+        setIsShowing(false);
     }
+  }
 
     // const sendRequest = async () =>{
     //   setIsShowing(true);

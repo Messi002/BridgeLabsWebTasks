@@ -26,34 +26,56 @@ const Login = ({token}) => {
     console.log(e.target.value);
   }
 
- 
-
-  const sendRequest = async () =>{
+  const handleSubmit =   async ()=>{
     setIsShowing(true);
-    const res = await axios.post("https://simplor.herokuapp.com/api/user/login",{
-      firstName: loginData.firstName,
-    lastName: loginData.lastName,
-    email: loginData.email,
-    contact: loginData.contact,
-    password: loginData.password,
-    avatar: loginData.avatar,
-    headers:{
-        "Content-Type":"application/json",
-        "Accept":"*/*"
+
+    const config={
+      headers:{
+        "Content-Type":"multipart/form-data",
       }
-    }).catch((err)=> console.log(err));
-    setIsShowing(false);
+    };
 
-    const data = await res.data;
-    return data;
-
+    try {
+      const formData = new FormData();
+      formData.append("email", loginData.email);
+      formData.append("password", loginData.password);
+      const res = await axios.post("https://simplor.herokuapp.com/api/user/register",formData,config);
+      console.log(res);
+      if(res.status ===200){
+console.log('registration successful');        return;
+      }
+    } catch (err) {
+      console.log(err);
+      setIsShowing(false);
   }
+}
 
-  const handleSubmit=(e)=>{
-    e.preventDefault();
-    console.log(loginData);
-    sendRequest().then(()=> navigate("/operations"))
-  }
+  // const sendRequest = async () =>{
+  //   setIsShowing(true);
+  //   const res = await axios.post("https://simplor.herokuapp.com/api/user/login",{
+  //     firstName: loginData.firstName,
+  //   lastName: loginData.lastName,
+  //   email: loginData.email,
+  //   contact: loginData.contact,
+  //   password: loginData.password,
+  //   avatar: loginData.avatar,
+  //   headers:{
+  //       "Content-Type":"application/json",
+  //       "Accept":"*/*"
+  //     }
+  //   }).catch((err)=> console.log(err));
+  //   setIsShowing(false);
+
+  //   const data = await res.data;
+  //   return data;
+
+  // }
+
+  // const handleSubmit=(e)=>{
+  //   e.preventDefault();
+  //   console.log(loginData);
+  //   sendRequest().then(()=> navigate("/operations"))
+  // }
 
 
 
