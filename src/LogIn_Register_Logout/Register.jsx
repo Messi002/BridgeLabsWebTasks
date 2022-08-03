@@ -21,83 +21,57 @@ const Register = () => {
       email: '',
       contact: '',
       password: '',
-      avatar: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
+      // avatar: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50',
     });
 
-    const {
-      firstName,
-      lastName,
-      email,
-      contact,
-      password,
-      avatar,
-    } = Data;
+    // const {
+    //   firstName,
+    //   lastName,
+    //   email,
+    //   contact,
+    //   password,
+    //   avatar,
+    // } = Data;
 
     const handleChange = (e) => {
-      setFormData({ ...Data, [e.target.name]: e.target.value });
+      // setFormData({ ...Data, [e.target.name]: e.target.value });
+      setFormData((prev)=>({
+        ...prev,[e.target.name]: e.target.value 
+      }));
       console.log(e.target.value);
 
     };
 
-    const handleSubmit =   async ()=>{
+   
+    const sendRequest = async () =>{
       setIsShowing(true);
-  
-      const config={
-        headers:{
-          "Content-Type":"multipart/form-data",
+      const res = await axios.post("https://simplor.herokuapp.com/api/user/register",{
+        firstName: Data.firstName,
+      lastName: Data.lastName,
+      email: Data.email,
+      contact: Data.contact,
+      password: Data.password,
+      avatar: Data.avatar,
+      headers:{
+          "Content-Type":"application/json",
+          "Accept":"application/json"
         }
-      };
-  
-      try {
-        const formData = new FormData();
-        formData.append("firstName", Data.firstName);
-        formData.append("lastName", Data.lastName);
-        formData.append("contact", Data.contact);
-        formData.append("email", Data.email);
-        formData.append("password", Data.password);
-        formData.append("avatar", Data.avatar);
-         await axios.post("https://simplor.herokuapp.com/api/user/register",formData,config).then((res)=>{
-        console.log(res.data);
-        alert("good");
-        navigate(()=> ("/login"));
-      }).catch((err)=>{
-        console.log(err);
-          console.log(err.response);
-          alert(err.response.data.error.message);
-      })    
-      } catch (err) {
-        toast.error(err,{osition:"bottom-right" });
-        console.log(err);
-        setIsShowing(false);
+
+      }).catch((err)=> console.log(err));
+      setIsShowing(false);
+
+      const data = await res.data;
+      console.log(res.message);
+      return data;
+
+
     }
-  }
 
-    // const sendRequest = async () =>{
-    //   setIsShowing(true);
-    //   const res = await axios.post("https://simplor.herokuapp.com/api/user/register",{
-    //     firstName: formData.firstName,
-    //   lastName: formData.lastName,
-    //   email: formData.email,
-    //   contact: formData.contact,
-    //   password: formData.password,
-    //   avatar: formData.avatar,
-    //   headers:{
-    //       "Content-Type":"application/json",
-    //       "Accept":"*/*"
-    //     }
-    //   }).catch((err)=> console.log(err));
-    //   setIsShowing(false);
-
-    //   const data = await res.data;
-    //   return data;
-
-    // }
-
-    // const handleSubmit=(e)=>{
-    //   e.preventDefault();
-    //   console.log(formData);
-    //   sendRequest().then(()=> navigate("/login"))
-    // }
+    const handleSubmit=(e)=>{
+      e.preventDefault();
+      console.log(Data);
+      sendRequest().then(()=> navigate("/login"));
+    }
 
 
 
@@ -158,27 +132,27 @@ const Register = () => {
  <form class="row" onSubmit={handleSubmit} >
         <div className="col-lg-12 col-sm-4 text-start" >
             <label htmlFor="firstName" className="form-label">First Name</label>
-            <input type="text" className="form-control" name="firstName" required onChange={handleChange} value={firstName}/>
+            <input type="text" className="form-control" name="firstName" required onChange={handleChange} />
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label htmlFor="lastName" className="form-label">Last Name</label>
-            <input type="text" className="form-control" name="lastName" required onChange={handleChange} value={lastName}/>
+            <input type="text" className="form-control" name="lastName" required onChange={handleChange} />
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label htmlFor="contact" className="form-label">Phone</label>
-            <input type="text" className="form-control" name="contact" required onChange={handleChange} value={contact}/>
+            <input type="text" className="form-control" name="contact" required onChange={handleChange} />
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label htmlFor="email" className="form-label">Email</label>
-            <input type="email" className="form-control" name="email" required onChange={handleChange} value={email}/>
+            <input type="email" className="form-control" name="email" required onChange={handleChange} />
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label htmlFor="password" className="form-label">Password</label>
-            <input type="password" className="form-control" name="password" required onChange={handleChange} value={password}/>
+            <input type="password" className="form-control" name="password" required onChange={handleChange} />
         </div>
 
         <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
@@ -216,3 +190,40 @@ const Register = () => {
 }
 
 export default Register
+
+
+
+
+// const handleSubmit =   async (e)=>{
+//   e.preventDeefault();
+//   setIsShowing(true);
+
+//   const config={
+//     headers:{
+//       "Content-Type":"multipart/form-data",
+//     }
+//   };
+
+//   try {
+//     const formData = new FormData();
+//     formData.append("firstName", Data.firstName);
+//     formData.append("lastName", Data.lastName);
+//     formData.append("contact", Data.contact);
+//     formData.append("email", Data.email);
+//     formData.append("password", Data.password);
+//     formData.append("avatar", Data.avatar);
+//      await axios.post("https://simplor.herokuapp.com/api/user/register",formData,config).then((res)=>{
+//     console.log(res.data);
+//     alert("good");
+//     navigate(()=> ("/login"));
+//   }).catch((err)=>{
+//     console.log(err);
+//       console.log(err.response);
+//       alert(err.response.data.error.message);
+//   })    
+//   } catch (err) {
+//     toast.error(err,{osition:"bottom-right" });
+//     console.log(err);
+//     setIsShowing(false);
+// }
+// }
