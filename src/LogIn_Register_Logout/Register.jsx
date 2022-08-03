@@ -9,11 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
     let navigate =useNavigate();
-    // useEffect(() => {
-    //   if (token && token !== '') {
-    //     window.location.pathname = '/';
-    //   }
-    // }, [token]);
+ 
     const [isShowing, setIsShowing] = useState(false);
     const [Data, setFormData] = useState({
       firstName: '',
