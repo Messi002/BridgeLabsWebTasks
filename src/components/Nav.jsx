@@ -10,7 +10,7 @@ import {
   Logo,
   OpenLinksButton,
   NavbarLinkExtended,
-} from "../styles/Navbar.style";
+} from "./style";
 
 function Navbar() {
   const [extendNavbar, setExtendNavbar] = useState(false);
@@ -19,11 +19,15 @@ function Navbar() {
     <NavbarContainer extendNavbar={extendNavbar}>
       <NavbarInnerContainer>
         <LeftContainer>
-          <NavbarLinkContainer>
+        <h2 style={{color: "rgb(53, 53, 169)"}}>Digital</h2>
+
+        </LeftContainer>
+        <RightContainer>
+              <NavbarLinkContainer>
             <NavbarLink to="/"> Home</NavbarLink>
-            <NavbarLink to="/products"> About Us</NavbarLink>
-            <NavbarLink to="/contact"> Contact Us</NavbarLink>
-            <NavbarLink to="/about"> About Us</NavbarLink>
+            <NavbarLink to="/aboutUs"> About Us</NavbarLink>
+            <NavbarLink to="/blog"> Blog</NavbarLink>
+            <NavbarLink to="/pricing"> Pricing</NavbarLink>
             <OpenLinksButton
               onClick={() => {
                 setExtendNavbar((curr) => !curr);
@@ -32,17 +36,14 @@ function Navbar() {
               {extendNavbar ? <>&#10005;</> : <> &#8801;</>}
             </OpenLinksButton>
           </NavbarLinkContainer>
-        </LeftContainer>
-        <RightContainer>
-              <h2 style={{color: "rgb(53, 53, 169)"}}>Digital</h2>
         </RightContainer>
       </NavbarInnerContainer>
       {extendNavbar && (
         <NavbarExtendedContainer>
           <NavbarLinkExtended to="/"> Home</NavbarLinkExtended>
-          <NavbarLinkExtended to="/products"> Products</NavbarLinkExtended>
-          <NavbarLinkExtended to="/contact"> Contact Us</NavbarLinkExtended>
-          <NavbarLinkExtended to="/about"> About Us</NavbarLinkExtended>
+          <NavbarLinkExtended to="/aboutUs"> About Us</NavbarLinkExtended>
+          <NavbarLinkExtended to="/blog"> Blog</NavbarLinkExtended>
+          <NavbarLinkExtended to="/pricing"> Pricing</NavbarLinkExtended>
         </NavbarExtendedContainer>
       )}
     </NavbarContainer>

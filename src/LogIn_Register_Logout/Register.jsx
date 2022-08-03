@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import img from '../Assets/img.PNG';
+import axios from 'axios';
 import {Spinner} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -38,102 +39,76 @@ const Register = () => {
 
     };
 
+    const sendRequest = async () =>{
+      setIsShowing(true);
+      const res = await axios.post("https://simplor.herokuapp.com/api/user/register",{
+        firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      contact: formData.contact,
+      password: formData.password,
+      avatar: formData.avatar,
+      headers:{
+          "Content-Type":"application/json",
+          "Accept":"application/json"
+        }
+      }).catch((err)=> console.log(err));
+      setIsShowing(false);
+
+      const data = await res.data;
+      return data;
+
+    }
+
+    const handleSubmit=(e)=>{
+      e.preventDefault();
+      console.log(formData);
+      sendRequest().then(()=> navigate("/login"))
+    }
+
+
+
+
     // const handleSubmit = async (e) => {
-    //   e.preventDefault();
-    
-    //   setIsShowing(true);
-    //   await fetch("https://simplor.herokuapp.com/api/user/register",{
-    //   method:"POST",
-    //   headers:{
-    //     Accept: "application/json",
-    //     "Content-Type":"application/json"
-    //   },
-    //   body: JSON.stringify({ email,
-    //     firstName,
-    //      lastName,
-    //     contact,
-    //     password,
-    //     avatar,})
-    // }).then((res)=>{
-    //   if(res.status ===200){
-    //     toast.success("Registration successful",{
-    //       position: "bottom-right",
-
-    //     })
-    //     return;
-    //   }
-    //   res.json().then((data)=>{
-       
-    //     if(data.detail){
-    //       toast.error(data.detail,{
-    //         position: "bottom-right",
-
-    //       })
-    //     }
-    //     console.log(data);
-        
-    //     toast.success("Registration successful",{
-    //       position: "bottom-right",
-
-    //     })
-
-    //   }).catch((err)=>{
-    //     console.log('res.json error',err);
-    //     setIsShowing(false);
-    //   });
-    //   setIsShowing(false);
-
-    // }).catch((error)=>{
-    //   console.log(error);
-    //   setIsShowing(false);
-    // })
-
-
-
-    // }
-
-
-
-    const handleSubmit = async (e) => {
-      const form = e.currentTarget;
-      if (form.checkValidity() === false) {
-        e.preventDefault();
-        e.stopPropagation();
-      } else {
-        e.preventDefault();
+    //   const form = e.currentTarget;
+    //   if (form.checkValidity() === false) {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //   } else {
+    //     e.preventDefault();
   
-        setIsShowing(true);
-        fetch("https://simplor.herokuapp.com/api/user/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email,
-                firstName,
-                 lastName,
-                contact,
-                password,
-                avatar,}),
-        })
-          .then((response) => {
-            if (response.status === 200) {
-              toast.success("Data Added Successfuly", {
-                position: "bottom-right",
-              });
-            } else {
-              toast.error(response.statusText + "(" + response.status + ")", {
-                position: "bottom-right",
-              });
-            }
+    //     setIsShowing(true);
+    //     fetch("https://simplor.herokuapp.com/api/user/register", {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify({ email,
+    //             firstName,
+    //              lastName,
+    //             contact,
+    //             password,
+    //             avatar,}),
+    //     })
+    //       .then((response) => {
+    //         if (response.status === 200) {
+    //           toast.success("Data Added Successfuly", {
+    //             position: "bottom-right",
+    //           });
+    //         } else {
+    //           toast.error(response.statusText + "(" + response.status + ")", {
+    //             position: "bottom-right",
+    //           });
+    //         }
   
             // setValidated(false);
-            setIsShowing(false);
-          })
-          .catch((err) => {
-            console.log(err);
-            setIsShowing(false);
-          });
-      }
+          //   setIsShowing(false);
+          // })
+          // .catch((err) => {
+          //   console.log(err);
+          //   setIsShowing(false);
+          // });
+      // }
       // setValidated(true);
-    };
+    // };
   
   return (
     <div className=" container mt-3 d-flex justify-content-center align-items-center" >
@@ -149,7 +124,7 @@ const Register = () => {
     {/* form begins here */}
  <form class="row" onSubmit={handleSubmit} >
         <div className="col-lg-12 col-sm-4 text-start" >
-            <label for="firstName" className="form-label">First Name</label>
+            <label htmlFor="firstName" className="form-label">First Name</label>
             <input type="text" className="form-control" name="firstName" required onChange={handleChange} value={firstName}/>
         </div>
 

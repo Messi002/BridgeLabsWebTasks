@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import img from '../Assets/img.PNG';
+import Navbar from '../components/Nav';
 import './main.css'
 
 
@@ -10,8 +11,7 @@ const MainPage = () => {
       <div className="row" >
         {/* Navigation bar here */}
 
-
-
+<Navbar/>
 
         {/* section                   1 */}
         <div className=" col-lg-6 col-sm-12 mt-3 justify-content-center align-content-center">
