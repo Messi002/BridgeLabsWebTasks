@@ -33,48 +33,91 @@ const Register = () => {
     //   avatar,
     // } = Data;
 
-    const handleChange = (e) => {
+    //start here
+    // const handleChange = (e) => {
       // setFormData({ ...Data, [e.target.name]: e.target.value });
-      setFormData((prev)=>({
-        ...prev,[e.target.name]: e.target.value 
-      }));
-      console.log(e.target.value);
+    //   setFormData((prev)=>({
+    //     ...prev,[e.target.name]: e.target.value 
+    //   }));
+    //   console.log(e.target.value);
 
-    };
+    // };
 
    
-    const sendRequest = async () =>{
+    // const sendRequest = async () =>{
+    //   setIsShowing(true);
+    //   const res = await axios.post("https://simplor.herokuapp.com/api/user/register",{
+    //     firstName: Data.firstName,
+    //   lastName: Data.lastName,
+    //   email: Data.email,
+    //   contact: Data.contact,
+    //   password: Data.password,
+    //   avatar: Data.avatar,
+    //   headers:{
+    //       "Content-Type":"application/json",
+    //       "Accept":"application/json"
+    //     }
+
+    //   }).catch((err)=> {
+    //     console.log(err.response.status)
+    //     console.log(err.response.data)
+    //     console.log(err.request)
+    //     console.log(err.message)
+
+
+    //   }
+    //   );
+    //   setIsShowing(false);
+
+    //   const data = await res.data;
+    //   console.log(res.message);
+    //   return data;
+
+
+    // }
+
+    // const handleSubmit=(e)=>{
+    //   e.preventDefault();
+    //   console.log(Data);
+    //   sendRequest().then(()=> navigate("/login"));
+    // }
+
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const inputObject = Object.fromEntries(formData);
+      console.log(inputObject);
+
       setIsShowing(true);
       const res = await axios.post("https://simplor.herokuapp.com/api/user/register",{
-        firstName: Data.firstName,
-      lastName: Data.lastName,
-      email: Data.email,
-      contact: Data.contact,
-      password: Data.password,
-      avatar: Data.avatar,
+      inputObject,
       headers:{
           "Content-Type":"application/json",
           "Accept":"application/json"
         }
 
-      }).catch((err)=> console.log(err));
+      }).then(()=>{
+        navigate("/login")
+      }).catch((err)=> {
+        console.log(err.response.status)
+        console.log(err.response.data)
+        console.log(err.request)
+        console.log(err.message)
+        setIsShowing(false);
+
+
+      }
+      );
       setIsShowing(false);
 
       const data = await res.data;
       console.log(res.message);
       return data;
-
+    
 
     }
-
-    const handleSubmit=(e)=>{
-      e.preventDefault();
-      console.log(Data);
-      sendRequest().then(()=> navigate("/login"));
-    }
-
-
-
+    
 
     // const handleSubmit = async (e) => {
     //   const form = e.currentTarget;
@@ -132,27 +175,27 @@ const Register = () => {
  <form class="row" onSubmit={handleSubmit} >
         <div className="col-lg-12 col-sm-4 text-start" >
             <label htmlFor="firstName" className="form-label">First Name</label>
-            <input type="text" className="form-control" name="firstName" required onChange={handleChange} />
+            <input type="text" className="form-control" name="firstName" required />
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label htmlFor="lastName" className="form-label">Last Name</label>
-            <input type="text" className="form-control" name="lastName" required onChange={handleChange} />
+            <input type="text" className="form-control" name="lastName" required />
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label htmlFor="contact" className="form-label">Phone</label>
-            <input type="text" className="form-control" name="contact" required onChange={handleChange} />
+            <input type="text" className="form-control" name="contact" required />
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label htmlFor="email" className="form-label">Email</label>
-            <input type="email" className="form-control" name="email" required onChange={handleChange} />
+            <input type="email" className="form-control" name="email" required />
         </div>
 
         <div className="col-lg-12 col-sm-4 text-start">
             <label htmlFor="password" className="form-label">Password</label>
-            <input type="password" className="form-control" name="password" required onChange={handleChange} />
+            <input type="password" className="form-control" name="password" required />
         </div>
 
         <div className="col-lg-12 col-sm-4 d-flex mt-3 justify-content-around">
