@@ -35,8 +35,8 @@ const Register = () => {
       const res = await axios.post("https://simplor.herokuapp.com/api/user/register",{
       inputObject,
       headers:{
-          "Content-Type":"application/json",
-          "Accept":"application/json"
+      "Content-Type":"multipart/form-data",
+      "Accept":"application/json"
         }
 
       }).then(()=>{
@@ -137,37 +137,3 @@ export default Register
 
 
 
-
-// const handleSubmit =   async (e)=>{
-//   e.preventDeefault();
-//   setIsShowing(true);
-
-//   const config={
-//     headers:{
-//       "Content-Type":"multipart/form-data",
-//     }
-//   };
-
-//   try {
-//     const formData = new FormData();
-//     formData.append("firstName", Data.firstName);
-//     formData.append("lastName", Data.lastName);
-//     formData.append("contact", Data.contact);
-//     formData.append("email", Data.email);
-//     formData.append("password", Data.password);
-//     formData.append("avatar", Data.avatar);
-//      await axios.post("https://simplor.herokuapp.com/api/user/register",formData,config).then((res)=>{
-//     console.log(res.data);
-//     alert("good");
-//     navigate(()=> ("/login"));
-//   }).catch((err)=>{
-//     console.log(err);
-//       console.log(err.response);
-//       alert(err.response.data.error.message);
-//   })    
-//   } catch (err) {
-//     toast.error(err,{osition:"bottom-right" });
-//     console.log(err);
-//     setIsShowing(false);
-// }
-// }
