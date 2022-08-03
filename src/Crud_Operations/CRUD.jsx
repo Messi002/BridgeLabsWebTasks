@@ -175,7 +175,7 @@ const Crud = () => {
     <div>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand>SIMPLE-CRUD</Navbar.Brand>
+          <Navbar.Brand>CRUD-OPERATIONS</Navbar.Brand>
           <Button variant="dark" className="float-end" onClick={logOut}>
             Logout
           </Button>
