@@ -73,7 +73,6 @@ const Register = () => {
  <div className="mt-4 col-sm-12 col-lg-6  justify-content-center text-center pb-2" >
     <h3 className="text-start">Registration</h3>
 
-    {/* form begins here */}
  <form class="row" onSubmit={handleSubmit} >
         <div className="col-lg-12 col-sm-4 text-start" >
             <label htmlFor="firstName" className="form-label">First Name</label>
