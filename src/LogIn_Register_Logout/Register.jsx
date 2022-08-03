@@ -15,7 +15,7 @@ const Register = () => {
     //   }
     // }, [token]);
     const [isShowing, setIsShowing] = useState(false);
-    const [formData, setFormData] = useState({
+    const [Data, setFormData] = useState({
       firstName: '',
       lastName: '',
       email: '',
@@ -31,40 +31,67 @@ const Register = () => {
       contact,
       password,
       avatar,
-    } = formData;
+    } = Data;
 
     const handleChange = (e) => {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+      setFormData({ ...Data, [e.target.name]: e.target.value });
       console.log(e.target.value);
 
     };
 
-    const sendRequest = async () =>{
+    const handleSubmit =   async ()=>{
       setIsShowing(true);
-      const res = await axios.post("https://simplor.herokuapp.com/api/user/register",{
-        firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      contact: formData.contact,
-      password: formData.password,
-      avatar: formData.avatar,
-      headers:{
-          "Content-Type":"application/json",
-          "Accept":"*/*"
+  
+      const config={
+        headers:{
+          "Content-Type":"multipart/form-data",
         }
-      }).catch((err)=> console.log(err));
-      setIsShowing(false);
+      };
+  
+      try {
+        const formData = new FormData();
+        formData.append("firstName", Data.firstName);
+        formData.append("lastName", Data.lastName);
+        formData.append("contact", Data.contact);
+        formData.append("email", Data.email);
+        formData.append("password", Data.password);
+        formData.append("avatar", Data.avatar);
+        const res = await axios.post("https://simplor.herokuapp.com/api/user/register",formData,config);
+        console.log(res);
 
-      const data = await res.data;
-      return data;
-
+      } catch (err) {
+        toast.error(err,{
+          position:"bottom-right",
+        })
+      }
     }
 
-    const handleSubmit=(e)=>{
-      e.preventDefault();
-      console.log(formData);
-      sendRequest().then(()=> navigate("/login"))
-    }
+    // const sendRequest = async () =>{
+    //   setIsShowing(true);
+    //   const res = await axios.post("https://simplor.herokuapp.com/api/user/register",{
+    //     firstName: formData.firstName,
+    //   lastName: formData.lastName,
+    //   email: formData.email,
+    //   contact: formData.contact,
+    //   password: formData.password,
+    //   avatar: formData.avatar,
+    //   headers:{
+    //       "Content-Type":"application/json",
+    //       "Accept":"*/*"
+    //     }
+    //   }).catch((err)=> console.log(err));
+    //   setIsShowing(false);
+
+    //   const data = await res.data;
+    //   return data;
+
+    // }
+
+    // const handleSubmit=(e)=>{
+    //   e.preventDefault();
+    //   console.log(formData);
+    //   sendRequest().then(()=> navigate("/login"))
+    // }
 
 
 

@@ -26,6 +26,8 @@ const Login = ({token}) => {
     console.log(e.target.value);
   }
 
+ 
+
   const sendRequest = async () =>{
     setIsShowing(true);
     const res = await axios.post("https://simplor.herokuapp.com/api/user/login",{
