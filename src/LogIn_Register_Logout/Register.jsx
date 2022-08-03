@@ -50,7 +50,7 @@ const Register = () => {
       avatar: formData.avatar,
       headers:{
           "Content-Type":"application/json",
-          "Accept":"application/json"
+          "Accept":"*/*"
         }
       }).catch((err)=> console.log(err));
       setIsShowing(false);

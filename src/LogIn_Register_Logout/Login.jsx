@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import img from "../Assets/img.PNG";
 import { Spinner } from "react-bootstrap";
+import axios from 'axios';
 import { GoogleLogin } from "react-google-login";
 const client_id = process.env.REACT_APP_CLIENT_ID;
 
@@ -25,38 +26,68 @@ const Login = ({token}) => {
     console.log(e.target.value);
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const sendRequest = async () =>{
     setIsShowing(true);
+    const res = await axios.post("https://simplor.herokuapp.com/api/user/login",{
+      firstName: loginData.firstName,
+    lastName: loginData.lastName,
+    email: loginData.email,
+    contact: loginData.contact,
+    password: loginData.password,
+    avatar: loginData.avatar,
+    headers:{
+        "Content-Type":"application/json",
+        "Accept":"*/*"
+      }
+    }).catch((err)=> console.log(err));
+    setIsShowing(false);
 
-    const response = await fetch("https://simplor.herokuapp.com/api/user/login",{
-      method:"POST",
-      headers:{
-        Accept: "application/json",
-        "Content-Type":"application/json"
-      },
-      body: JSON.stringify({email,password})
-    })
+    const data = await res.data;
+    return data;
 
-    if(response.status === 200){
-      let result = await response.json();
-      console.log(result);
-      localStorage.setItem("token",result.access)
-      navigate("/operations")
-    }else{
-      if (
-        email === '' ||
-        password === '' ) {
-          setMsg("Please fill out all fiedls!");
+  }
 
-                  return;
-      }  
-      setMsg("Error");
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    console.log(loginData);
+    sendRequest().then(()=> navigate("/operations"))
+  }
 
-      setIsShowing(false);
-    }
 
-  };
+
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsShowing(true);
+
+  //   const response = await fetch("https://simplor.herokuapp.com/api/user/login",{
+  //     method:"POST",
+  //     headers:{
+  //       Accept: "application/json",
+  //       "Content-Type":"application/json"
+  //     },
+  //     body: JSON.stringify({email,password})
+  //   })
+
+  //   if(response.status === 200){
+  //     let result = await response.json();
+  //     console.log(result);
+  //     localStorage.setItem("token",result.access)
+  //     navigate("/operations")
+  //   }else{
+  //     if (
+  //       email === '' ||
+  //       password === '' ) {
+  //         setMsg("Please fill out all fiedls!");
+
+  //                 return;
+  //     }  
+  //     setMsg("Error");
+
+  //     setIsShowing(false);
+  //   }
+
+  // };
 
 
   //google auth

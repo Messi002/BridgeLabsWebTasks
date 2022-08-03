@@ -1,15 +1,15 @@
-h2{
+.H2{
     font-size: 40px;
     font-weight: 800;
     margin-bottom: 1rem;
     color: rgb(53, 53, 169);
 }
-h3{
+.H3{
     color: rgba(0, 0, 0, 0.6);
     font-size: 18px;
 }
 
-input{
+.INPUT1{
     padding: 0.5rem;
     color: rgba(0, 0, 0, 0.6);
     width: 80%;
@@ -24,10 +24,10 @@ input{
     transition: 0.2s ease-in-out;
     -webkit-transition: 0.2s ease-in-out;
 }
- input:focus, input:focus-within {
+.INPUT1:focus, .INPUT1:focus-within {
     border: 2px solid rgb(173, 165, 165);
 }
-.illustratn{
+.illus{
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;

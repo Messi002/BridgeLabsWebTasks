@@ -17,12 +17,12 @@ const MainPage = () => {
         <div className=" col-lg-6 col-sm-12 mt-3 justify-content-center align-content-center">
 
       
-          <h2>
+          <h2 className='H2'>
                Artificial Intelligence Driving Results For The Travel Industry.
              </h2>
-             <h3>Welcome back! Please log into your account.</h3>
-             <div className="search">
-               <input type="search" placeholder="Search Services..." />
+             <h3 className='H3'>Welcome back! Please log into your account.</h3>
+             <div>
+               <input type="search" className='INPUT1' placeholder="Search Services..." />
              </div>
              <div className="d-flex justify-content-evenly">
                <Link to="/about-us" >
@@ -37,7 +37,7 @@ const MainPage = () => {
         </div>
 
 {/* Image section */}
-        <div className="mt-4 col-lg-6 col-sm-12 pb-2 illustratn" >
+        <div className="mt-4 col-lg-6 col-sm-12 pb-2 illus" >
         <img src={img} className="img-fluid" alt="Loading..." />
 
       </div>
