@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/BridgeLabsWebTasks/static/css/main.f53a4650.css",
+    "main.js": "/BridgeLabsWebTasks/static/js/main.64e52885.js",
+    "static/js/787.c1112931.chunk.js": "/BridgeLabsWebTasks/static/js/787.c1112931.chunk.js",
+    "static/media/img.PNG": "/BridgeLabsWebTasks/static/media/img.b0ead403350da106fac4.PNG",
+    "index.html": "/BridgeLabsWebTasks/index.html",
+    "main.f53a4650.css.map": "/BridgeLabsWebTasks/static/css/main.f53a4650.css.map",
+    "main.64e52885.js.map": "/BridgeLabsWebTasks/static/js/main.64e52885.js.map",
+    "787.c1112931.chunk.js.map": "/BridgeLabsWebTasks/static/js/787.c1112931.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f53a4650.css",
+    "static/js/main.64e52885.js"
+  ]
+}
